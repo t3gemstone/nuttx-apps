@@ -1,0 +1,29 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config BLINK
+	tristate "BLINK example"
+	default n
+	---help---
+		Enable the BLINK example
+
+if BLINK
+
+config BLINK_PROGNAME
+	string "Program name"
+	default "blink"
+	---help---
+		This is the name of the program that will be used when the NSH ELF
+		program is installed.
+
+config BLINK_PRIORITY
+	int "blink task priority"
+	default 100
+
+config BLINK_STACKSIZE
+	int "blink stack size"
+	default DEFAULT_TASK_STACKSIZE
+
+endif

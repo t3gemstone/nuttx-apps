@@ -1,0 +1,14 @@
+
+
+include $(APPDIR)/Make.defs
+
+
+PROGNAME  = $(CONFIG_BLINK_PROGNAME)
+PRIORITY  = $(CONFIG_BLINK_PRIORITY)
+STACKSIZE = $(CONFIG_BLINK_STACKSIZE)
+MODULE    = $(CONFIG_BLINK)
+
+
+MAINSRC = blink_main.c
+
+include $(APPDIR)/Application.mk

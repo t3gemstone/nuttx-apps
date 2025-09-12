@@ -1,0 +1,5 @@
+
+
+ifneq ($(CONFIG_BLINK),)
+CONFIGURED_APPS += $(APPDIR)/blink
+endif
