@@ -23,6 +23,9 @@
 #define CSL_REG32_WR(p, v)      (CSL_REG32_WR_RAW((volatile uint32_t *)(p), (uint32_t)(v)))
 #define CSL_REG32_RD(p)         (CSL_REG32_RD_RAW((volatile uint32_t *) (p)))
 
+#define MCU_GPIO0_BASE          0x4201000UL
+#define MCU_GPIO0_SIZE          0x100UL
+
 #define MAIN_GPIO0_BASE         0x600000UL
 #define MAIN_GPIO0_SIZE         0x100UL
 
@@ -69,7 +72,6 @@ typedef struct {
     volatile uint8_t  RSVD0[4];
     CSL_GpioBank_registersRegs  BANK_REGISTERS[9];
 } CSL_GpioRegs;
-    
 
 static inline void CSL_REG32_WR_RAW(volatile uint32_t * const p, uint32_t v);
 static inline void CSL_REG32_WR_RAW(volatile uint32_t * const p, uint32_t v)
@@ -83,7 +85,6 @@ static inline uint32_t CSL_REG32_RD_RAW(volatile const uint32_t * const p)
 {
     return (*p);
 }
-
 
 static inline void GPIO_pinWriteHigh(uint32_t baseAddr, uint32_t pinNum)
 {
@@ -109,14 +110,9 @@ static inline void GPIO_pinWriteLow(uint32_t baseAddr, uint32_t pinNum)
     return;
 }
 
-
-
 void GPIO_pinWriteHigh(uint32_t baseAddr, uint32_t pinNum);
 void GPIO_pinWriteLow(uint32_t baseAddr, uint32_t pinNum);
 void GPIO_setDirMode(uint32_t baseAddr, uint32_t pinNum, uint32_t pinDir);
 
 void gpio_config(void);
 void led_blink(void);
-
-
-

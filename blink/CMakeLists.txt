@@ -1,5 +1,3 @@
-
-
 if(CONFIG_BLINK)
   nuttx_add_application(
     NAME

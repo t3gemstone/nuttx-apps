@@ -1,8 +1,4 @@
-
-
-
 #include <nuttx/config.h>
-#include <stdio.h>
 #include <unistd.h>
 #include "blink.h"
 
@@ -16,38 +12,24 @@
 
 int main(int argc, FAR char *argv[])
 {
-  printf("PID: %d\n",getpid());
   led_blink();
   return 0;
-
 }
 
+void led_blink(void)
+{
+    GPIO_setDirMode(MAIN_GPIO1_BASE, 52, GPIO_DIRECTION_OUTPUT); // Green LED
+    GPIO_setDirMode(MAIN_GPIO1_BASE, 53, GPIO_DIRECTION_OUTPUT); // Red LED, active low
 
-void led_blink(void){
-
-
-    
-    GPIO_setDirMode(MAIN_GPIO0_BASE, 12, GPIO_DIRECTION_OUTPUT);
-    GPIO_setDirMode(MAIN_GPIO0_BASE, 11, GPIO_DIRECTION_OUTPUT);
     while(1) {
-    GPIO_pinWriteHigh(MAIN_GPIO0_BASE, 12);
-    GPIO_pinWriteLow(MAIN_GPIO0_BASE, 11);
-    sleep(1); 
-    GPIO_pinWriteLow(MAIN_GPIO0_BASE, 12);
-    GPIO_pinWriteHigh(MAIN_GPIO0_BASE, 11);
-    sleep(1); 
-    GPIO_pinWriteHigh(MAIN_GPIO0_BASE, 12);
-    GPIO_pinWriteLow(MAIN_GPIO0_BASE, 11);
-    sleep(1); 
-    GPIO_pinWriteLow(MAIN_GPIO0_BASE, 12);
-    GPIO_pinWriteHigh(MAIN_GPIO0_BASE, 11);
-    sleep(3); 
+        GPIO_pinWriteHigh(MAIN_GPIO1_BASE, 52);
+        GPIO_pinWriteHigh(MAIN_GPIO1_BASE, 53);
+        usleep(3);
+        GPIO_pinWriteLow(MAIN_GPIO1_BASE, 52);
+        GPIO_pinWriteLow(MAIN_GPIO1_BASE, 53);
+        sleep(3);
     }
 }
-
-
-
-
 
 void GPIO_setDirMode(uint32_t baseAddr, uint32_t pinNum, uint32_t pinDir)
 {
@@ -60,6 +42,3 @@ void GPIO_setDirMode(uint32_t baseAddr, uint32_t pinNum, uint32_t pinDir)
 
     return;
 }
-
-
-
