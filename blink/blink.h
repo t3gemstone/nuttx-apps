@@ -86,6 +86,18 @@ static inline uint32_t CSL_REG32_RD_RAW(volatile const uint32_t * const p)
     return (*p);
 }
 
+static inline void GPIO_setDirMode(uint32_t baseAddr, uint32_t pinNum, uint32_t pinDir)
+{
+    uint32_t                regIndex, bitPos;
+    volatile CSL_GpioRegs*  hGpio = (volatile CSL_GpioRegs*)((uintptr_t) baseAddr);
+
+    regIndex = GPIO_GET_REG_INDEX(pinNum);
+    bitPos = GPIO_GET_BIT_POS(pinNum);
+    CSL_FINSR(hGpio->BANK_REGISTERS[regIndex].DIR, bitPos, bitPos, (((uint32_t) pinDir) & 0x01U));
+
+    return;
+}
+
 static inline void GPIO_pinWriteHigh(uint32_t baseAddr, uint32_t pinNum)
 {
     uint32_t                regIndex, regVal;
@@ -109,10 +121,3 @@ static inline void GPIO_pinWriteLow(uint32_t baseAddr, uint32_t pinNum)
 
     return;
 }
-
-void GPIO_pinWriteHigh(uint32_t baseAddr, uint32_t pinNum);
-void GPIO_pinWriteLow(uint32_t baseAddr, uint32_t pinNum);
-void GPIO_setDirMode(uint32_t baseAddr, uint32_t pinNum, uint32_t pinDir);
-
-void gpio_config(void);
-void led_blink(void);
